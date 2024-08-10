@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
-import { Task } from './task/task.model';
+import { NewTaskData, Task } from './task/task.model';
 import { CommonModule } from '@angular/common';
 import { NewTaskComponent } from "./new-task/new-task.component";
 
@@ -75,5 +75,17 @@ export class TasksComponent {
 
   onCancelAddTask() {
     this.isAddingTask = false;
+  }
+
+  //adding a new task to the existing array with the matching properties
+  onAddTask(taskData: NewTaskData) {
+    this.tasks.unshift({                                //push to add it at the bottom, unshift adds at the top
+      id: new Date().getTime().toString(),
+      userId: this.userId,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date
+    })
+    this.isAddingTask = false //to close the dialogue
   }
 }
